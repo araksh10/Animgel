@@ -2,7 +2,7 @@ import React from "react";
 
 const Button = ({ buttName }) => {
 	return (
-		<button className="text-white rounded-xl border-2 border-purple-400 drop-shadow-sm drop-shadow-purple-400 m-2 p-2 hover:bg-purple-400/30 active:drop-shadow-none text-center">
+		<button className="text-white rounded-xl border-2 bg-transparent border-purple-400 drop-shadow-sm drop-shadow-purple-400 m-2 p-2 hover:bg-purple-400/30 active:drop-shadow-none text-center">
 			{buttName}
 		</button>
 	);

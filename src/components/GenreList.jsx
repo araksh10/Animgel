@@ -1,11 +1,26 @@
 import Button from "./Button";
+import { gql, useQuery } from "@apollo/client";
+
+const getGenreQuery = gql`
+	{
+		genres {
+			name
+			id
+		}
+	}
+`;
 
 const GenreList = () => {
+	const { data, loading, error } = useQuery(getGenreQuery);
+
+	if (loading) return "loading...";
+	if (error) return `Error: ${error.message}`;
+
 	return (
 		<div>
 			<h3 className="font-bold text-2xl mx-4 mb-4 mt-8">Genres List</h3>
 			<div className="">
-				<Button buttName="Action" />
+				{/* <Button buttName="Action" />
 				<Button buttName="Adventure" />
 				<Button buttName="Cars" />
 				<Button buttName="Comedy" />
@@ -34,7 +49,11 @@ const GenreList = () => {
 				<Button buttName="Sports" />
 				<Button buttName="Super Natural" />
 				<Button buttName="Thriller" />
-				<Button buttName="Vampire" />
+				<Button buttName="Vampire" /> */}
+
+				{data.genres.map((genre) => (
+					<Button key={genre.id} buttName={genre.name} />
+				))}
 			</div>
 		</div>
 	);
