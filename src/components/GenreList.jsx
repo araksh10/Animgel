@@ -10,16 +10,21 @@ const getGenreQuery = gql`
 	}
 `;
 
-const GenreList = () => {
+const GenreList = ({ onSettingGenre }) => {
 	const { data, loading, error } = useQuery(getGenreQuery);
 
 	if (loading) return "loading...";
 	if (error) return `Error: ${error.message}`;
 
+	const searchByGenre = (genreID) => {
+		onSettingGenre(genreID);
+	};
+
 	return (
 		<div>
 			<h3 className="font-bold text-2xl mx-4 mb-4 mt-8">Genres List</h3>
 			<div className="">
+				<Button onClick={() => searchByGenre()} buttName="All Anime" />
 				{/* <Button buttName="Action" />
 				<Button buttName="Adventure" />
 				<Button buttName="Cars" />
@@ -52,7 +57,11 @@ const GenreList = () => {
 				<Button buttName="Vampire" /> */}
 
 				{data.genres.map((genre) => (
-					<Button key={genre.id} buttName={genre.name} />
+					<Button
+						onClick={() => searchByGenre(genre.id)}
+						key={genre.id}
+						buttName={genre.name}
+					/>
 				))}
 			</div>
 		</div>
